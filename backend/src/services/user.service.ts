@@ -13,10 +13,17 @@ export class UsersService {
     @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
   ) {}
   async create(createUserDto: any): Promise<User> {
-    const createdUser = new this.userModel(createUserDto);
-    await createdUser.save();
-    delete createdUser['password'];
-    return createdUser;
+    try {
+      const createdUser = new this.userModel(createUserDto);
+      await createdUser.save();
+      delete createdUser['password'];
+      return createdUser;
+    } catch (err) {
+      const message = err.message.includes('duplicate')
+        ? 'Email Already Exists'
+        : err?.message;
+      throw new BadRequestException(message);
+    }
   }
 
   async findAll(dto: any): Promise<{

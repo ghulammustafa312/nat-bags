@@ -7,7 +7,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [currentPage, setCurrentPage] = useState("profile");
-  
+
   const [loginCredential, setLoginCredential] = useState({
     email: "",
     password: "",
@@ -35,13 +35,13 @@ export const AuthProvider = ({ children }) => {
       setLoginCredential({ email, password });
       const response = await loginService(email, password);
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         setLoginLoading(false);
-        toast.success(`Welcome back, ${response.data.foundUser.firstName}!`);
-        const encodedToken = response.data.encodedToken;
-        const firstName = response.data.foundUser.firstName;
-        const lastName = response.data.foundUser.lastName;
-        const email = response.data.foundUser.email;
+        toast.success(`Welcome back, ${response.data?.data?.user?.firstName}!`);
+        const encodedToken = response.data?.data.access_token;
+        const firstName = response.data?.data?.user?.firstName;
+        const lastName = response.data?.data?.user?.lastName;
+        const email = response.data?.data?.user?.email;
 
         setAuth({
           token: encodedToken,
@@ -62,7 +62,7 @@ export const AuthProvider = ({ children }) => {
       }
     } catch (error) {
       setLoginLoading(false);
-      setError(error.response.data.errors[0]);
+      setError(error?.response?.data?.message);
     } finally {
       setLoginLoading(false);
     }
@@ -81,7 +81,7 @@ export const AuthProvider = ({ children }) => {
         loginCredential,
         setLoginCredential,
         setCurrentPage,
-        currentPage
+        currentPage,
       }}
     >
       {children}

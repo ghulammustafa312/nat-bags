@@ -10,11 +10,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors({
-    origin: ['*'],
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    credentials: true,
-  });
+  app.enableCors();
   const config = new DocumentBuilder()
     .setTitle('NAT Bags Project')
     .setDescription('Nat Bags Project API description')

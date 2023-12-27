@@ -33,7 +33,10 @@ export class AddressDto {
 export class UserDto {
   @ApiProperty()
   @IsString()
-  name: string;
+  firstName: string;
+  @ApiProperty()
+  @IsString()
+  lastName: string;
 
   @ApiProperty()
   @IsEmail()
@@ -41,7 +44,7 @@ export class UserDto {
 
   @ApiProperty({ type: [AddressDto] })
   @IsArray()
-  @ArrayNotEmpty()
+  // @ArrayNotEmpty()
   @ValidateNested({ each: true })
   @Type(() => AddressDto)
   addresses: AddressDto[];

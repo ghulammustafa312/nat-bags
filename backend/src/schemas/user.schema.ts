@@ -10,14 +10,16 @@ export type UserDocument = User & Document;
 })
 export class User {
   @Prop({ required: true, type: String })
-  name: string;
+  firstName: string;
+  @Prop({ required: true, type: String })
+  lastName: string;
 
   @Prop({ required: true, unique: true })
   email: string;
   @Prop({ required: true, type: String })
   password: string;
 
-  @Prop({ type: Array<Address>, required: true })
+  @Prop({ type: Array<Address>, required: false })
   addresses: Address[];
 
   @Prop({ required: false, enum: USER_ROLE, default: USER_ROLE.USER })

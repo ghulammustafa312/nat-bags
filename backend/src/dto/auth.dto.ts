@@ -16,7 +16,10 @@ import { USER_ROLE } from 'src/constants/enums';
 export class CreateUserDto {
   @ApiProperty({ type: String })
   @IsString()
-  readonly name: string;
+  readonly firstName: string;
+  @ApiProperty({ type: String })
+  @IsString()
+  readonly lastName: string;
 
   @ApiProperty({ type: String })
   @IsEmail()
@@ -27,7 +30,7 @@ export class CreateUserDto {
 
   @ApiProperty({ type: [AddressDto] })
   @IsArray()
-  @ArrayNotEmpty()
+  // @ArrayNotEmpty()
   @ValidateNested({ each: true })
   @Type(() => AddressDto)
   readonly addresses: AddressDto[];

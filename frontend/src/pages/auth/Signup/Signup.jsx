@@ -26,6 +26,7 @@ export const Signup = () => {
     confirmPassword: "",
     firstName: "",
     lastName: "",
+    phoneNumber: "",
   });
 
   const signupHandler = async () => {
@@ -37,38 +38,39 @@ export const Signup = () => {
           signupCredential.email,
           signupCredential.password,
           signupCredential.firstName,
-          signupCredential.lastName
+          signupCredential.lastName,
+          signupCredential.phoneNumber
         );
         if (response.status === 201) {
           setSignUpLoading(false);
           toast.success(
-            `You've successfully signed up, ${response.data.createdUser.firstName}`
+            `You've successfully signed up, ${response?.data?.data?.firstName}`
           );
-          const encodedToken = response.data.encodedToken;
-          const firstName = response.data.createdUser.firstName;
-          const lastName = response.data.createdUser.lastName;
-          const email = response.data.createdUser.email;
+          // const encodedToken = response.data.encodedToken;
+          // const firstName = response.data.createdUser.firstName;
+          // const lastName = response.data.createdUser.lastName;
+          // const email = response.data.createdUser.email;
 
-          setAuth({
-            token: encodedToken,
-            isAuth: true,
-            firstName,
-            lastName,
-            email,
-          });
+          // setAuth({
+          //   token: encodedToken,
+          //   isAuth: true,
+          //   firstName,
+          //   lastName,
+          //   email,
+          // });
 
-          localStorage.setItem("token", encodedToken);
-          localStorage.setItem("isAuth", true);
-          localStorage.setItem("firstName", firstName);
-          localStorage.setItem("lastName", lastName);
-          localStorage.setItem("email", email);
+          // localStorage.setItem("token", encodedToken);
+          // localStorage.setItem("isAuth", true);
+          // localStorage.setItem("firstName", firstName);
+          // localStorage.setItem("lastName", lastName);
+          // localStorage.setItem("email", email);
 
-          navigate("/");
+          navigate("/login");
         }
       }
     } catch (error) {
       setSignUpLoading(false);
-      setError(error.response.data.errors);
+      setError(error.response.data.message);
     } finally {
       setSignUpLoading(false);
     }
@@ -190,6 +192,20 @@ export const Signup = () => {
               type="text"
             />
           </div>
+          <div className="name-container">
+            <label htmlFor="phone-number">Phone Number</label>
+            <input
+              onChange={(e) =>
+                setSignupCredential({
+                  ...signupCredential,
+                  phoneNumber: e.target.value,
+                })
+              }
+              id="phone-number"
+              placeholder="Enter Phone Number"
+              type="text"
+            />
+          </div>
 
           <div className="remember-me-container">
             <div>
@@ -199,7 +215,7 @@ export const Signup = () => {
               </label>
             </div>
           </div>
-          {error && <p className="error">{error[0]}</p>}
+          {error && <p className="error">{error}</p>}
 
           <div className="signup-btn-container">
             <input value="Sign Up" type="submit" />
