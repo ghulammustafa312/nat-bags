@@ -12,18 +12,13 @@ import { getSearchedProducts } from "../../../../helpers/searchedProducts";
 import { AiOutlineHeart } from "react-icons/ai";
 import { AiTwotoneHeart } from "react-icons/ai";
 import { useUserData } from "../../../../contexts/UserDataProvider";
+import { products } from "../../../../backend/db/products";
 
 import { BsFillStarFill } from "react-icons/bs";
 
 export const ProductListingSection = () => {
   const { state } = useData();
-  const {
-    isProductInCart,
-    isProductInWishlist,
-    wishlistHandler,
-    addToCartHandler,
-    cartLoading,
-  } = useUserData();
+  const { isProductInCart, isProductInWishlist, wishlistHandler, addToCartHandler, cartLoading } = useUserData();
 
   const {
     allProductsFromApi,
@@ -31,7 +26,7 @@ export const ProductListingSection = () => {
     filters: { rating, categories, price, sort },
   } = state;
 
-  const searchedProducts = getSearchedProducts(allProductsFromApi, inputSearch);
+  const searchedProducts = getSearchedProducts(products, inputSearch);
 
   const ratedProducts = getRatedProducts(searchedProducts, rating);
 
@@ -44,43 +39,17 @@ export const ProductListingSection = () => {
   return (
     <div className="product-card-container">
       {!sortedProducts.length ? (
-        <h2 className="no-products-found">
-          Sorry, there are no matching products!
-        </h2>
+        <h2 className="no-products-found">Sorry, there are no matching products!</h2>
       ) : (
         sortedProducts.map((product) => {
-          const {
-            _id,
-            id,
-            name,
-            original_price,
-            discounted_price,
-            category_name,
-            is_stock,
-            rating,
-            reviews,
-            trending,
-            img,
-          } = product;
+          const { _id, id, name, original_price, discounted_price, category_name, is_stock, rating, reviews, trending, img } = product;
 
           return (
-            <Tilt
-              key={product._id}
-              tiltMaxAngleX={5}
-              tiltMaxAngleY={5}
-              glareEnable={false}
-              transitionSpeed={2000}
-              scale={1.02}
-            >
+            <Tilt key={product._id} tiltMaxAngleX={5} tiltMaxAngleY={5} glareEnable={false} transitionSpeed={2000} scale={1.02}>
               <div className="product-card" key={_id}>
                 <Link to={`/product-details/${id}`}>
                   <div className="product-card-image">
-                    <Tilt
-                      transitionSpeed={2000}
-                      tiltMaxAngleX={15}
-                      tiltMaxAngleY={15}
-                      scale={1.18}
-                    >
+                    <Tilt transitionSpeed={2000} tiltMaxAngleX={15} tiltMaxAngleY={15} scale={1.18}>
                       <img src={img} />
                     </Tilt>
                   </div>
@@ -105,22 +74,11 @@ export const ProductListingSection = () => {
                 </div>
 
                 <div className="product-card-buttons">
-                  <button
-                    disabled={cartLoading}
-                    onClick={() => addToCartHandler(product)}
-                    className="cart-btn"
-                  >
+                  <button disabled={cartLoading} onClick={() => addToCartHandler(product)} className="cart-btn">
                     {!isProductInCart(product) ? "Add To Cart" : "Go to Cart"}
                   </button>
-                  <button
-                    onClick={() => wishlistHandler(product)}
-                    className="wishlist-btn"
-                  >
-                    {!isProductInWishlist(product) ? (
-                      <AiOutlineHeart size={30} />
-                    ) : (
-                      <AiTwotoneHeart size={30} />
-                    )}
+                  <button onClick={() => wishlistHandler(product)} className="wishlist-btn">
+                    {!isProductInWishlist(product) ? <AiOutlineHeart size={30} /> : <AiTwotoneHeart size={30} />}
                   </button>
                 </div>
               </div>
