@@ -10,8 +10,7 @@ import { useData } from "../../../contexts/DataProvider";
 export const Login = () => {
   const { loading } = useData();
   const [hidePassword, setHidePassword] = useState(true);
-  const { error, loginCredential, setLoginCredential, loginHandler } =
-    useAuth();
+  const { error, loginCredential, setLoginCredential, loginHandler } = useAuth();
 
   const { email, password } = loginCredential;
 
@@ -19,10 +18,7 @@ export const Login = () => {
     !loading && (
       <div className="login-container">
         <h2>Login</h2>
-        <form
-          onSubmit={(e) => loginHandler(e, email, password)}
-          className="login-body"
-        >
+        <form onSubmit={(e) => loginHandler(e, email, password)} className="login-body">
           <div className="email-container">
             <label htmlFor="email">Email</label>
             <input
@@ -57,15 +53,9 @@ export const Login = () => {
                 type={hidePassword ? "password" : "text"}
               />{" "}
               {!hidePassword ? (
-                <BsEye
-                  className="hide-show-password-eye"
-                  onClick={() => setHidePassword(!hidePassword)}
-                />
+                <BsEye className="hide-show-password-eye" onClick={() => setHidePassword(!hidePassword)} />
               ) : (
-                <BsEyeSlash
-                  className="hide-show-password-eye"
-                  onClick={() => setHidePassword(!hidePassword)}
-                />
+                <BsEyeSlash className="hide-show-password-eye" onClick={() => setHidePassword(!hidePassword)} />
               )}
             </div>
           </div>

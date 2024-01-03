@@ -5,7 +5,8 @@ nav {
   justify-content: space-between;
   padding: 1rem;
   width: 100%;
-  background-color: black;
+  /* background-color: black; */
+  background-color: #0b090a;
   top: 0;
   z-index: 3;
 }
@@ -135,7 +136,7 @@ input:focus {
   cursor: pointer;
 }
 .cart-count {
-  font-size: .7rem;
+  font-size: 0.7rem;
   position: relative;
   display: inline-block;
   padding: 2.5px 6px;
