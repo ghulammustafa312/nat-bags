@@ -30,7 +30,7 @@
 
 .orders-container .products-card {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   color: grey;
 }

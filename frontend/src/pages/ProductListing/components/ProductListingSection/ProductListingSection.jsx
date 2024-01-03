@@ -26,7 +26,7 @@ export const ProductListingSection = () => {
     filters: { rating, categories, price, sort },
   } = state;
 
-  const searchedProducts = getSearchedProducts(products, inputSearch);
+  const searchedProducts = getSearchedProducts(allProductsFromApi, inputSearch);
 
   const ratedProducts = getRatedProducts(searchedProducts, rating);
 
@@ -47,7 +47,7 @@ export const ProductListingSection = () => {
           return (
             <Tilt key={product._id} tiltMaxAngleX={5} tiltMaxAngleY={5} glareEnable={false} transitionSpeed={2000} scale={1.02}>
               <div className="product-card" key={_id}>
-                <Link to={`/product-details/${id}`}>
+                <Link to={`/product-details/${_id}`}>
                   <div className="product-card-image">
                     <Tilt transitionSpeed={2000} tiltMaxAngleX={15} tiltMaxAngleY={15} scale={1.18}>
                       <img src={img} />
@@ -66,7 +66,7 @@ export const ProductListingSection = () => {
                     <p className="discount-price">${discounted_price}</p>
                   </div>
 
-                  <p>Gender: {category_name}</p>
+                  <p>Category: {category_name}</p>
                   <div className="info">
                     {!is_stock && <p className="out-of-stock">Out of stock</p>}
                     {trending && <p className="trending">Trending</p>}

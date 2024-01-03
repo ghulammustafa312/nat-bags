@@ -12,11 +12,11 @@ import { Type } from 'class-transformer';
 export class AddressDto {
   @ApiProperty()
   @IsString()
-  addressLine1: string;
+  street: string;
 
   @ApiProperty()
   @IsOptional()
-  addressLine2: string;
+  pincode: string;
 
   @ApiProperty()
   @IsString()

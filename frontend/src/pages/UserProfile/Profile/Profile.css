@@ -21,10 +21,11 @@
 .profile-details .name {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 .profile-details .email {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: space-between;
+  margin-left: 20px;
+  justify-content: space-evenly;
 }

@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { Document } from 'mongoose';
+import mongoose, { Document, Mixed } from 'mongoose';
 import { USER_ROLE } from 'src/constants/enums';
 
 export type UserDocument = User & Document;
@@ -19,7 +19,7 @@ export class User {
   @Prop({ required: true, type: String })
   password: string;
 
-  @Prop({ type: Array<Address>, required: false })
+  @Prop({ type: Array<Address>, required: false, default: [] })
   addresses: Address[];
 
   @Prop({ required: false, enum: USER_ROLE, default: USER_ROLE.USER })
@@ -27,15 +27,19 @@ export class User {
 
   @Prop({ required: true, type: String })
   phoneNo: string;
+  @Prop({ required: false, default: [], type: Array<Mixed> })
+  cart: object[];
+  @Prop({ required: false, default: [], type: Array<Mixed> })
+  wishlist: object[];
 }
 
 @Schema()
 export class Address {
   @Prop({ required: true, type: String })
-  addressLine1: string;
+  street: string;
 
   @Prop({ required: false, type: String })
-  addressLine2: string;
+  pincode: string;
 
   @Prop({ required: true, type: String })
   city: string;

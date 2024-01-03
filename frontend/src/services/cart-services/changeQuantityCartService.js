@@ -1,20 +1,9 @@
-import axios from "axios";
+import { axiosClient } from "../axios";
 
-export const changeQuantityCartService = async (
-  productId,
-  encodedToken,
-  type
-) => {
-  return await axios.post(
-    `/api/user/cart/${productId}`,
-
-    {
-      action: {
-        type,
-      },
+export const changeQuantityCartService = async (productId, type) => {
+  return await axiosClient.put(`cart/${productId}`, {
+    action: {
+      type,
     },
-    {
-      headers: { authorization: encodedToken },
-    }
-  );
+  });
 };

@@ -31,11 +31,11 @@ export function AddressProvider({ children }) {
     try {
       setLoading(true);
       setError("");
-      const response = await removeAddressService(address, auth.token);
+      const response = await removeAddressService(address);
       if (response.status === 200) {
         setLoading(false);
         toast.success(`${address.name}'s address deleted successfully!`);
-        dispatch({ type: "SET_ADDRESS", payload: response.data.addressList });
+        dispatch({ type: "SET_ADDRESS", payload: response.data.data });
       }
     } catch (error) {
       setLoading(false);

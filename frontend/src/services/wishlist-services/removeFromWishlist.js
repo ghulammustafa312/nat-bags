@@ -1,7 +1,5 @@
-import axios from "axios";
+import { axiosClient } from "../axios";
 
-export const removeFromWishlistService = async (productId, encodedToken) => {
-  return await axios.delete(`/api/user/wishlist/${productId}`, {
-    headers: { authorization: encodedToken },
-  });
+export const removeFromWishlistService = async (productId) => {
+  return await axiosClient.delete(`/wishlist/${productId}`);
 };

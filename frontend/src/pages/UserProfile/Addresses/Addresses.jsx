@@ -15,21 +15,16 @@ export const Addresses = () => {
   const { auth } = useAuth();
 
   const { userDataState, dispatch } = useUserData();
-  const {
-    setIsEdit,
-    setAddressForm,
-    isAddressModalOpen,
-    setIsAddressModalOpen,
-  } = useAddress();
+  const { setIsEdit, setAddressForm, isAddressModalOpen, setIsAddressModalOpen } = useAddress();
 
   const deleteAddress = async (address) => {
     try {
       setLoading(true);
       setError("");
-      const response = await removeAddressService(address, auth.token);
+      const response = await removeAddressService(address);
       if (response.status === 200) {
         toast.success(`${address.name}'s address successfully deleted!`);
-        dispatch({ type: "SET_ADDRESS", payload: response.data.addressList });
+        dispatch({ type: "SET_ADDRESS", payload: response.data?.data });
       }
     } catch (error) {
       setLoading(false);
@@ -59,23 +54,19 @@ export const Addresses = () => {
       <div className="profile-address-container">
         {userDataState.addressList.length ? (
           userDataState.addressList.map((address) => {
-            const { name, street, city, state, country, pincode, phone, _id } =
-              address;
+            const { name, street, city, state, country, pincode, phone, _id } = address;
             return (
               <div className="address-card" key={_id}>
                 <p className="name">{name}</p>
                 <p className="address">
-                  <span>Address:</span> {street}, {city}, {state}, {country} -{" "}
-                  {pincode}
+                  <span>Address:</span> {street}, {city}, {state}, {country} - {pincode}
                 </p>
                 <p className="phone">
                   <span>Phone: </span>
                   {phone}
                 </p>
                 <div className="address-btn-container">
-                  <button onClick={() => editButtonHandler(address)}>
-                    Edit
-                  </button>
+                  <button onClick={() => editButtonHandler(address)}>Edit</button>
                   <button onClick={() => deleteAddress(address)}>Delete</button>
                 </div>
               </div>

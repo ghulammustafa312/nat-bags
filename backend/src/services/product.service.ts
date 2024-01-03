@@ -14,7 +14,36 @@ export class ProductService {
   ) {}
 
   async getAllProducts(): Promise<Product[]> {
-    return this.productModel.find().exec();
+    try {
+      return this.productModel.aggregate([
+        {
+          $lookup: {
+            from: 'categories',
+            localField: 'categoryId',
+            foreignField: '_id',
+            as: 'category',
+          },
+        },
+        {
+          $unwind: {
+            path: '$category',
+            preserveNullAndEmptyArrays: true,
+          },
+        },
+        {
+          $addFields: {
+            category_name: '$category.categoryName',
+          },
+        },
+        {
+          $project: {
+            category: 0,
+          },
+        },
+      ]);
+    } catch (err) {
+      throw new Error(err);
+    }
   }
 
   async getProductById(productId: string): Promise<Product> {

@@ -8,13 +8,7 @@ import { useData } from "../../contexts/DataProvider";
 export const Wishlist = () => {
   const navigate = useNavigate();
 
-  const {
-    userDataState,
-    isProductInCart,
-    addToCartHandler,
-    removeFromWishlistHandler,
-    cartCountHandler,
-  } = useUserData();
+  const { userDataState, isProductInCart, addToCartHandler, removeFromWishlistHandler, cartCountHandler } = useUserData();
 
   const { loading } = useData();
 
@@ -27,11 +21,7 @@ export const Wishlist = () => {
           {userDataState.wishlistProducts?.map((product) => (
             <div className="wishlist-card" key={product.name}>
               <div>
-                <img
-                  className="img-container"
-                  alt={product.name}
-                  src={product.img}
-                />
+                <img className="img-container" alt={product.name} src={product.img} />
               </div>
 
               <div className="product-card-details">
@@ -45,11 +35,9 @@ export const Wishlist = () => {
                   <p className="discount-price">${product.discounted_price}</p>
                 </div>
 
-                <p>Gender: {product.category_name}</p>
+                <p>Category: {product.category_name}</p>
                 <div className="info">
-                  {!product.is_stock && (
-                    <p className="out-of-stock">Out of stock</p>
-                  )}
+                  {!product.is_stock && <p className="out-of-stock">Out of stock</p>}
                   {product.trending && <p className="trending">Trending</p>}
                 </div>
               </div>
@@ -57,18 +45,11 @@ export const Wishlist = () => {
               <div className="wishlist-btn-container">
                 <button
                   className="cart-wishlist-btn"
-                  onClick={() =>
-                    !isProductInCart(product)
-                      ? addToCartHandler(product)
-                      : cartCountHandler(product, "increment")
-                  }
+                  onClick={() => (!isProductInCart(product) ? addToCartHandler(product) : cartCountHandler(product, "increment"))}
                 >
                   {!isProductInCart(product) ? "Add to Cart" : `Added to Cart`}
                 </button>
-                <button
-                  className="remove-from-wishlist-btn"
-                  onClick={() => removeFromWishlistHandler(product)}
-                >
+                <button className="remove-from-wishlist-btn" onClick={() => removeFromWishlistHandler(product)}>
                   Remove from Wishlist
                 </button>
               </div>

@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
 import { loginService } from "../services/auth-services/loginService";
+import { axiosClient } from "../services/axios";
 
 const AuthContext = createContext();
 
@@ -21,11 +22,7 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [auth, setAuth] = useState(
-    encodedToken
-      ? { token: encodedToken, isAuth: true, firstName, lastName, email }
-      : { token: "", isAuth: false }
-  );
+  const [auth, setAuth] = useState(encodedToken ? { token: encodedToken, isAuth: true, firstName, lastName, email } : { token: "", isAuth: false });
 
   const loginHandler = async (e, email, password) => {
     e.preventDefault();
@@ -34,14 +31,20 @@ export const AuthProvider = ({ children }) => {
       setError("");
       setLoginCredential({ email, password });
       const response = await loginService(email, password);
-
       if (response.status === 201) {
         setLoginLoading(false);
         toast.success(`Welcome back, ${response.data?.data?.user?.firstName}!`);
+        // axiosClient.interceptors.request.use();
         const encodedToken = response.data?.data.access_token;
         const firstName = response.data?.data?.user?.firstName;
         const lastName = response.data?.data?.user?.lastName;
         const email = response.data?.data?.user?.email;
+        localStorage.setItem("token", encodedToken);
+        localStorage.setItem("isAuth", true);
+        localStorage.setItem("firstName", firstName);
+        localStorage.setItem("lastName", lastName);
+        localStorage.setItem("email", email);
+        setLoginCredential({ email: "", password: "" });
 
         setAuth({
           token: encodedToken,
@@ -50,13 +53,6 @@ export const AuthProvider = ({ children }) => {
           lastName,
           email,
         });
-
-        localStorage.setItem("token", encodedToken);
-        localStorage.setItem("isAuth", true);
-        localStorage.setItem("firstName", firstName);
-        localStorage.setItem("lastName", lastName);
-        localStorage.setItem("email", email);
-        setLoginCredential({ email: "", password: "" });
 
         navigate(location?.state?.from.pathname || "/");
       }

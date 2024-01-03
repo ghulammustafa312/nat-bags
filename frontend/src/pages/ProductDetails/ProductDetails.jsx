@@ -11,9 +11,7 @@ export const ProductDetails = () => {
   const { productId } = useParams();
   const { loading } = useData();
 
-  const selectedProduct = state.allProductsFromApi?.find(
-    ({ id }) => Number(id) === Number(productId)
-  );
+  const selectedProduct = state.allProductsFromApi?.find(({ _id }) => _id === productId);
 
   return (
     !loading && (

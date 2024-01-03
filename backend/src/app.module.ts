@@ -19,6 +19,12 @@ import { ProductService } from './services/product.service';
 import { CategoryService } from './services/category.service';
 import { Product, ProductSchema } from './schemas/product.schema';
 import { Category, CategorySchema } from './schemas/category.schema';
+import { CartController } from './controllers/cart.controller';
+import { CartService } from './services/cart.service';
+import { WishListController } from './controllers/wishlist.controller';
+import { WishListService } from './services/wishlist.service';
+import { AddressController } from './controllers/address.controller';
+import { AddressService } from './services/address.service';
 console.log(process.env.MONGODB_ENV);
 @Module({
   imports: [
@@ -27,7 +33,7 @@ console.log(process.env.MONGODB_ENV);
     PassportModule,
     JwtModule.register({
       secret: process.env.SECRET_KEY,
-      signOptions: { expiresIn: '1h' },
+      signOptions: { expiresIn: '7d' },
     }),
     MongooseModule.forFeature([
       { name: User.name, schema: UserSchema },
@@ -40,7 +46,10 @@ console.log(process.env.MONGODB_ENV);
     AuthController,
     ProductController,
     CategoryController,
-  ],
+    CartController,
+    WishListController,
+    AddressController,
+  ].sort(),
   providers: [
     { provide: APP_FILTER, useClass: HttpExceptionFilter },
     { provide: APP_INTERCEPTOR, useClass: ResponseInterceptor },
@@ -49,6 +58,9 @@ console.log(process.env.MONGODB_ENV);
     UsersService,
     ProductService,
     CategoryService,
+    CartService,
+    WishListService,
+    AddressService,
     JwtStrategy,
   ],
 })

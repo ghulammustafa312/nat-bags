@@ -11,10 +11,10 @@ export const VideosSection = () => {
     <>
       <div className="video-container">
         <Tilt transitionSpeed={1000} scale={1.07} className="video-card">
-          <ReactPlayer
+          {/*   <ReactPlayer
             onClick={() => navigate("/product-details/26")}
-            // url={`${process.env.PUBLIC_URL}/assets/videos/hero-video-1.mp4`}
-            url="https://res.cloudinary.com/darwtgzlk/video/upload/w_400,f_auto,q_auto/v1687842001/Ecommerce-app/hero-video-1_juagj7.mp4"
+            url={`/assets/images/products-images/image-kids-1.png`}
+            // url="https://res.cloudinary.com/darwtgzlk/video/upload/w_400,f_auto,q_auto/v1687842001/Ecommerce-app/hero-video-1_juagj7.mp4"
             playing
             playbackRate={1.15}
             muted
@@ -23,6 +23,8 @@ export const VideosSection = () => {
             width="100%"
             height="119.9%"
           />
+  */}
+          <img src="/assets/images/products-images/image-kids-1.png" alt="test" />
 
           <h3>Aether Ultra Pro</h3>
           <span className="notch"></span>

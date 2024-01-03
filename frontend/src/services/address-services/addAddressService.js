@@ -1,9 +1,6 @@
 import axios from "axios";
+import { axiosClient } from "../axios";
 
-export const addAddressService = async (address, token) => {
-  return await axios.post(
-    "/api/user/address/",
-    { address },
-    { headers: { authorization: token } }
-  );
+export const addAddressService = async (address) => {
+  return await axiosClient.post("/address/", { address });
 };

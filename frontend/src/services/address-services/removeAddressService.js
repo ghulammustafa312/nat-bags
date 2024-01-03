@@ -1,7 +1,5 @@
-import axios from "axios";
+import { axiosClient } from "../axios";
 
-export const removeAddressService = async (address, token) => {
-  return await axios.delete(`/api/user/address/${address._id}`, {
-    headers: { authorization: token },
-  });
+export const removeAddressService = async (address) => {
+  return await axiosClient.delete(`/address/${address._id}`);
 };

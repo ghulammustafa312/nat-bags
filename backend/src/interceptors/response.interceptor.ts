@@ -42,10 +42,7 @@ export class ResponseInterceptor implements NestInterceptor {
               : HttpStatus[request.method.toUpperCase()],
           );
         return {
-          data:
-            request.method.toUpperCase() === 'DELETE'
-              ? null
-              : data?.data ?? data ?? null,
+          data: data?.data ?? data ?? null,
           message: 'Success',
           errors: data?.errors ?? null,
         };

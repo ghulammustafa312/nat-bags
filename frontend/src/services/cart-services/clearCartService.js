@@ -1,9 +1,5 @@
-import axios from "axios";
+import { axiosClient } from "../axios";
 
-export const clearCartService = async (token) => {
-  return await axios.post(
-    "/api/user/cart/clearCart",
-    {},
-    { headers: { authorization: token } }
-  );
+export const clearCartService = async () => {
+  return await axiosClient.post("/cart/clearCart", {});
 };

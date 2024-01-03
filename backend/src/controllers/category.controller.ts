@@ -5,7 +5,7 @@ import { CategoryDto } from 'src/dto/category,dto';
 import { Category } from 'src/schemas/category.schema';
 import { CategoryService } from 'src/services/category.service';
 
-@Controller('category')
+@Controller('categories')
 @ApiTags('Category')
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}

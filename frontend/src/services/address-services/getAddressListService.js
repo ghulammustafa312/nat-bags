@@ -1,7 +1,5 @@
-import axios from "axios";
+import { axiosClient } from "../axios";
 
-export const getAddressListService = async (token) => {
-  return await axios.get("/api/user/address", {
-    headers: { authorization: token },
-  });
+export const getAddressListService = async () => {
+  return await axiosClient.get("/address");
 };

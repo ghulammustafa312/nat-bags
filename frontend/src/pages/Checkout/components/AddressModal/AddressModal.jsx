@@ -25,29 +25,21 @@ export const AddressModal = () => {
     phone: "705-645-5637",
   };
 
-  const {
-    setIsAddressModalOpen,
-    addressForm,
-    setAddressForm,
-    isEdit,
-    setIsEdit,
-  } = useAddress();
+  const { setIsAddressModalOpen, addressForm, setAddressForm, isEdit, setIsEdit } = useAddress();
 
   const updateAddress = async (address) => {
     try {
       setLoading(true);
       setError("");
       const response = await updateAddressService(address, auth.token);
-      if (response.status === 200) {
-        console.log("edit address", response);
+      if (response.status === 202) {
         setLoading(false);
         toast.success(` ${address.name}'s address updated successfully!`);
-        dispatch({ type: "SET_ADDRESS", payload: response.data.addressList });
+        dispatch({ type: "SET_ADDRESS", payload: response.data.data });
       }
     } catch (error) {
       setLoading(false);
       console.error(error);
-    } finally {
       setLoading(false);
     }
   };
@@ -56,11 +48,11 @@ export const AddressModal = () => {
     try {
       setLoading(true);
       setError("");
-      const response = await addAddressService(address, auth.token);
+      const response = await addAddressService(address);
       if (response.status === 201) {
         setLoading(false);
         toast.success("New address added successfully!");
-        dispatch({ type: "SET_ADDRESS", payload: response.data.addressList });
+        dispatch({ type: "SET_ADDRESS", payload: response.data.data });
       }
     } catch (error) {
       setLoading(false);
@@ -111,62 +103,48 @@ export const AddressModal = () => {
             name="name"
             value={addressForm.name}
             required
-            onChange={(e) =>
-              setAddressForm({ ...addressForm, name: e.target.value })
-            }
+            onChange={(e) => setAddressForm({ ...addressForm, name: e.target.value })}
             placeholder="Enter Name"
           />
           <input
             required
             value={addressForm.street}
-            onChange={(e) =>
-              setAddressForm({ ...addressForm, street: e.target.value })
-            }
+            onChange={(e) => setAddressForm({ ...addressForm, street: e.target.value })}
             placeholder="Enter Street"
           />
           <input
             name="city"
             required
             value={addressForm.city}
-            onChange={(e) =>
-              setAddressForm({ ...addressForm, city: e.target.value })
-            }
+            onChange={(e) => setAddressForm({ ...addressForm, city: e.target.value })}
             placeholder="Enter City"
           />
           <input
             name="state"
             required
             value={addressForm.state}
-            onChange={(e) =>
-              setAddressForm({ ...addressForm, state: e.target.value })
-            }
+            onChange={(e) => setAddressForm({ ...addressForm, state: e.target.value })}
             placeholder="Enter State"
           />
           <input
             name="country"
             value={addressForm.country}
             required
-            onChange={(e) =>
-              setAddressForm({ ...addressForm, country: e.target.value })
-            }
+            onChange={(e) => setAddressForm({ ...addressForm, country: e.target.value })}
             placeholder="Enter Country"
           />
           <input
             name="pincode"
             value={addressForm.pincode}
             required
-            onChange={(e) =>
-              setAddressForm({ ...addressForm, pincode: e.target.value })
-            }
+            onChange={(e) => setAddressForm({ ...addressForm, pincode: e.target.value })}
             placeholder="Enter Pincode"
           />
           <input
             name="phone"
             value={addressForm.phone}
             required
-            onChange={(e) =>
-              setAddressForm({ ...addressForm, phone: e.target.value })
-            }
+            onChange={(e) => setAddressForm({ ...addressForm, phone: e.target.value })}
             placeholder="Enter Phone"
             minLength="8"
           />

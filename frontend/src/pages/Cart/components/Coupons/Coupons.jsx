@@ -37,25 +37,19 @@ export const Coupons = ({ couponSelected, setCouponSelected }) => {
     }
   };
 
-  const totalDiscountedPriceBeforeCoupon = userDataState.cartProducts?.reduce(
-    (acc, curr) => acc + curr.discounted_price * curr.qty,
-    0
-  );
+  const totalDiscountedPriceBeforeCoupon = userDataState.cartProducts?.reduce((acc, curr) => acc + curr.discounted_price * curr.qty, 0);
 
   return (
     <div className="coupons-section">
       <div className="coupon-header">
         <MdDiscount color={"black"} />
-        <h3 onClick={() => setIsCouponClicked(!isCouponClicked)}>
-          Apply Coupons ?
-        </h3>
+        <h3 onClick={() => setIsCouponClicked(!isCouponClicked)}>Apply Coupons ?</h3>
       </div>
 
       {isCouponClicked && (
         <div className="coupon-list-container">
           {couponsData.map((coupon) => {
-            const { id, name, description, minimumPurchase, discount, amount } =
-              coupon;
+            const { id, name, description, minimumPurchase, discount, amount } = coupon;
             return (
               <div key={id} className="coupon-card">
                 <input

@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useReducer,
-  useState,
-} from "react";
+import { createContext, useContext, useEffect, useReducer, useState } from "react";
 
 import { getAllCategories } from "../services/services";
 import { getAllProducts } from "../services/services";
@@ -27,16 +21,16 @@ export function DataProvider({ children }) {
         dispatch({
           type: "GET_ALL_PRODUCTS_FROM_API",
           payload: [
-            ...response.data.products
+            ...response?.data?.data
               .map((value) => ({ value, sort: Math.random() }))
               .sort((a, b) => a.sort - b.sort)
-              .map(({ value }) => value),
+              .map(({ value }) => ({ ...value })),
           ],
         });
       }
     } catch (error) {
       setError(true);
-      console.error(error)
+      console.error(error);
     } finally {
       setLoading(false);
     }
@@ -48,11 +42,11 @@ export function DataProvider({ children }) {
       if (response.request.status === 200) {
         dispatch({
           type: "GET_ALL_CATEGORIES",
-          payload: response.data.categories,
+          payload: response?.data?.data,
         });
       }
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   };
 
@@ -61,11 +55,7 @@ export function DataProvider({ children }) {
     getCategories();
   }, []);
 
-  return (
-    <DataContext.Provider value={{ state, dispatch, loading }}>
-      {children}
-    </DataContext.Provider>
-  );
+  return <DataContext.Provider value={{ state, dispatch, loading }}>{children}</DataContext.Provider>;
 }
 
 export const useData = () => useContext(DataContext);

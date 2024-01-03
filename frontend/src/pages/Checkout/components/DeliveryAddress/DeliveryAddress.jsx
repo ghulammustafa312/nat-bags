@@ -25,14 +25,12 @@ export const DeliveryAddress = () => {
 
   const navigate = useNavigate();
 
-  const userContact = addressList?.find(
-    ({ _id }) => _id === orderAddress?._id
-  )?.phone;
+  const userContact = addressList?.find(({ _id }) => _id === orderAddress?._id)?.phone;
 
   const { auth, setCurrentPage } = useAuth();
 
   const successHandler = (response) => {
-    const paymentId = response.razorpay_payment_id;
+    const paymentId = response?.razorpay_payment_id;
     const orderId = uuid();
     const order = {
       paymentId,
@@ -52,7 +50,7 @@ export const DeliveryAddress = () => {
     key: KEY_ID,
     currency: "INR",
     amount: Number(totalAmount) * 100,
-    name: "DadSneakers",
+    name: "Nat Bags",
     description: "Order for products",
     prefill: {
       name: auth.firstName,
@@ -66,8 +64,9 @@ export const DeliveryAddress = () => {
 
   const placeOrderHandler = () => {
     if (orderAddress) {
-      const razorpayInstance = new window.Razorpay(razorpayOptions);
-      razorpayInstance.open();
+      // const razorpayInstance = new window.Razorpay(razorpayOptions);
+      // razorpayInstance.open();
+      successHandler({ razorpay_payment_id: "test payment" });
     } else {
       toast("Please select an address!");
     }
@@ -78,13 +77,9 @@ export const DeliveryAddress = () => {
       <p>Delivering To</p>
 
       <div className="delivery-address-description">
-        <span className="name">
-          Name: {userDataState.orderDetails?.orderAddress?.name}
-        </span>
+        <span className="name">Name: {userDataState.orderDetails?.orderAddress?.name}</span>
         <span className="address">
-          Address: {orderAddress?.street}, {orderAddress?.city},{" "}
-          {orderAddress?.state}, {orderAddress?.country},{" "}
-          {orderAddress?.pincode}
+          Address: {orderAddress?.street}, {orderAddress?.city}, {orderAddress?.state}, {orderAddress?.country}, {orderAddress?.pincode}
         </span>
         <span className="contact">Contact: {orderAddress?.phone}</span>
         <button onClick={placeOrderHandler} className="place-order-btn">

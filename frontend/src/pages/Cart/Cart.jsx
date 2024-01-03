@@ -22,10 +22,11 @@ export const Cart = () => {
         <div className="cart-container">
           <CartListing />
           <div>
-            <Coupons
+            {/*  <Coupons
               couponSelected={couponSelected}
               setCouponSelected={setCouponSelected}
             />
+    */}
             <CartAmountSummary couponSelected={couponSelected} />
           </div>
         </div>
@@ -33,10 +34,7 @@ export const Cart = () => {
     ) : (
       <div className="no-items-container">
         <h2 className="page-heading">Cart is Empty!</h2>
-        <button
-          className="explore-btn"
-          onClick={() => navigate("/product-listing")}
-        >
+        <button className="explore-btn" onClick={() => navigate("/product-listing")}>
           Explore
         </button>
       </div>
