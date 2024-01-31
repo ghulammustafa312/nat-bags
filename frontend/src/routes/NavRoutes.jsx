@@ -16,6 +16,7 @@ import { Addresses } from "../pages/UserProfile/Addresses/Addresses";
 import { Orders } from "../pages/UserProfile/Orders/Orders";
 import { PageNotFound } from "../pages/PageNotFound/PageNotFound";
 import { LoginMain } from "../pages/auth/MainPage";
+import { Dashboard } from "../pages/Dashboard/Dashboard";
 
 export const NavRoutes = () => {
   return (
@@ -62,6 +63,21 @@ export const NavRoutes = () => {
         />
         <Route path="/profile/orders" element={<Orders />} />
         <Route path="/profile/addresses" element={<Addresses />} />
+      </Route>
+      <Route path="/dashboard" element={<Dashboard />}>
+        <Route
+          path="/dashboard/"
+          element={
+            <RequiresAuth>
+              <Profile />
+            </RequiresAuth>
+          }
+        />
+        <Route path="/dashboard/orders" element={<Orders />} />
+        <Route path="/dashboard/users" element={<Addresses />} />
+        <Route path="/dashboard/products" element={<Addresses />} />
+        <Route path="/dashboard/categories" element={<Addresses />} />
+        <Route path="/dashboard/complaints" element={<Addresses />} />
       </Route>
     </Routes>
   );

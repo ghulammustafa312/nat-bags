@@ -2,12 +2,12 @@ import React, { createContext, useContext, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
 import { loginService } from "../services/auth-services/loginService";
-import { axiosClient } from "../services/axios";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [currentPage, setCurrentPage] = useState("profile");
+  const [dashboardPage, setDashboardPage] = useState("dashboard");
 
   const [loginCredential, setLoginCredential] = useState({
     email: "",
@@ -22,7 +22,11 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [auth, setAuth] = useState(encodedToken ? { token: encodedToken, isAuth: true, firstName, lastName, email } : { token: "", isAuth: false });
+  const [auth, setAuth] = useState(
+    encodedToken
+      ? { token: encodedToken, isAuth: true, firstName, lastName, email }
+      : { token: "", isAuth: false }
+  );
 
   const loginHandler = async (e, email, password) => {
     e.preventDefault();
@@ -34,7 +38,6 @@ export const AuthProvider = ({ children }) => {
       if (response.status === 201) {
         setLoginLoading(false);
         toast.success(`Welcome back, ${response.data?.data?.user?.firstName}!`);
-        // axiosClient.interceptors.request.use();
         const encodedToken = response.data?.data.access_token;
         const firstName = response.data?.data?.user?.firstName;
         const lastName = response.data?.data?.user?.lastName;
@@ -78,6 +81,8 @@ export const AuthProvider = ({ children }) => {
         setLoginCredential,
         setCurrentPage,
         currentPage,
+        setDashboardPage,
+        dashboardPage,
       }}
     >
       {children}
