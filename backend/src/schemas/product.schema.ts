@@ -1,9 +1,29 @@
 // src/product/product.schema.ts
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, SchemaTypes } from 'mongoose';
+import { Document, SchemaTypes, Types } from 'mongoose';
 import { Category } from './category.schema';
+import { User } from './user.schema';
 
 export type ProductDocument = Product & Document;
+
+@Schema({ versionKey: false, timestamps: true })
+export class Review {
+  @Prop({ type: String, required: true })
+  feedback: string;
+  @Prop({ type: Number, required: true })
+  rating: string;
+  @Prop({ type: SchemaTypes.ObjectId, required: true, ref: User.name })
+  userId: Types.ObjectId;
+
+  @Prop({ type: SchemaTypes.Mixed, required: true })
+  user: {
+    firstName: string;
+    lastName: string;
+    // profileImage: string;
+  };
+}
+
+export const ReviewSchema = SchemaFactory.createForClass(Review);
 
 @Schema({
   versionKey: false,
@@ -41,6 +61,8 @@ export class Product {
 
   @Prop({ required: true })
   img: string;
+  @Prop({ required: false, default: [], type: [ReviewSchema], _id: true })
+  reviewsData: [Review];
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);

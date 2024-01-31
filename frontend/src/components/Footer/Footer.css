@@ -2,7 +2,7 @@
   color: white;
   text-align: center;
   display: block;
-  background-color: black;
+  background-color: #f385a4;
   display: flex;
   flex-flow: column nowrap;
   padding: 0.8rem;
@@ -12,7 +12,7 @@
   margin: 0.5rem;
 }
 .footer > :first-child {
-  opacity: 0.5;
+  /* opacity: 0.5; */
 }
 
 .social-links {
@@ -23,7 +23,7 @@
 
 .social-links > * {
   padding: 0 1rem;
-  color: rgb(175, 175, 175);
+  /* color: rgb(175, 175, 175); */
 }
 .social-links > *:hover {
   color: white;

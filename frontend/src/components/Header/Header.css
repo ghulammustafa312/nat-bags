@@ -6,7 +6,7 @@ nav {
   padding: 1rem;
   width: 100%;
   /* background-color: black; */
-  background-color: #0b090a;
+  background-color: #f385a4;
   top: 0;
   z-index: 3;
 }
@@ -19,7 +19,7 @@ nav {
 .nav-logo-home-button a {
   outline: none;
   border: none;
-  color: rgb(175, 175, 175);
+  /* color: rgb(175, 175, 175); */
   text-decoration: none;
   font-weight: 400;
   display: flex;
@@ -80,7 +80,7 @@ input:focus {
   background-color: rgb(255, 255, 255);
   align-items: stretch;
   z-index: 1;
-  background-color: rgb(0, 0, 0);
+  background-color: #f385a4;
   box-shadow: 0px 0px 46px -4px rgb(176, 175, 175);
 }
 .nav-link-container-mobile > * {
@@ -186,10 +186,10 @@ input:focus {
   }
 
   .nav-link-container > * {
-    color: rgb(176, 175, 175);
+    color: rgb(24, 24, 24);
   }
   .nav-link-container > *:hover {
-    background-color: black;
+    background-color: transparent;
     cursor: pointer;
     color: white;
     border: none;

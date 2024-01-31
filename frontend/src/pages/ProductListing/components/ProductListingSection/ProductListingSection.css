@@ -35,9 +35,9 @@
 .product-card-image img {
   height: 230px;
   bottom: -2em;
-  width: 140%;
+  width: 14rem;
   object-fit: cover;
-  margin-left: -3em;
+  /* margin-left: -3em; */
 }
 
 .product-card-details {

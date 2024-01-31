@@ -25,6 +25,9 @@ export const userDataReducer = (state, action) => {
     case "SET_ORDERS": {
       return { ...state, orders: [...state.orders, { ...action.payload }] };
     }
+    case "SET_USER_ORDERS": {
+      return { ...state, orders: [...action.payload] };
+    }
 
     default:
       return state;

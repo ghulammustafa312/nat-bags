@@ -29,18 +29,19 @@ export const DeliveryAddress = () => {
 
   const { auth, setCurrentPage } = useAuth();
 
-  const successHandler = (response) => {
+  const successHandler = async (response) => {
     const paymentId = response?.razorpay_payment_id;
     const orderId = uuid();
     const order = {
       paymentId,
-      orderId,
-      amountPaid: totalAmount,
+      // orderId,
+      amountPaid: Number(totalAmount),
       orderedProducts: [...cartProducts],
       deliveryAddress: { ...orderAddress },
     };
 
     dispatch({ type: "SET_ORDERS", payload: order });
+    await addOrderService(order);
     clearCartHandler(auth.token);
     setCurrentPage("orders");
     navigate("/profile/orders");

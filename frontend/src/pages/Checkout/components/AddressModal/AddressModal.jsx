@@ -16,7 +16,7 @@ export const AddressModal = () => {
   const { dispatch } = useUserData();
 
   const dummyAddress = {
-    name: "Chirag",
+    name: "John Doe",
     street: "3874 Manitoba Street",
     city: "Bracebridge",
     state: "Ontario",

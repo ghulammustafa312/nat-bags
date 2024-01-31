@@ -76,6 +76,25 @@ export class ProductService {
     return updatedProduct;
   }
 
+  async addReview(id: string, data: any) {
+    try {
+      const product = await this.productModel.findById(id);
+      if (!product) throw new NotFoundException('Product not found');
+      const newAverage = this.calculateAverage(
+        product.rating,
+        product.reviews,
+        data.rating,
+      );
+      product.rating = Number(newAverage);
+      product.reviews += 1;
+      product.reviewsData.push(data);
+      await product.save();
+      return product;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
   async deleteProduct(productId: string): Promise<void> {
     const deletedProduct = await this.productModel
       .findByIdAndDelete(productId)
@@ -83,5 +102,15 @@ export class ProductService {
     if (!deletedProduct) {
       throw new NotFoundException('Product not found');
     }
+  }
+
+  private calculateAverage(
+    oldAverage: number = 0,
+    oldCount: number = 0,
+    newRating: number,
+  ) {
+    const newCount = oldCount + 1;
+    const newAverage = (oldAverage * oldCount + newRating) / newCount;
+    return newAverage.toFixed(1);
   }
 }

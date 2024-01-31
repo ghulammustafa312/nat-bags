@@ -25,6 +25,9 @@ import { WishListController } from './controllers/wishlist.controller';
 import { WishListService } from './services/wishlist.service';
 import { AddressController } from './controllers/address.controller';
 import { AddressService } from './services/address.service';
+import { OrderController } from './controllers/order.controller';
+import { OrderService } from './services/order.service';
+import { Order, OrderSchema } from './schemas/order.schema';
 console.log(process.env.MONGODB_ENV);
 @Module({
   imports: [
@@ -39,6 +42,7 @@ console.log(process.env.MONGODB_ENV);
       { name: User.name, schema: UserSchema },
       { name: Product.name, schema: ProductSchema },
       { name: Category.name, schema: CategorySchema },
+      { name: Order.name, schema: OrderSchema },
     ]),
   ],
   controllers: [
@@ -49,6 +53,7 @@ console.log(process.env.MONGODB_ENV);
     CartController,
     WishListController,
     AddressController,
+    OrderController,
   ].sort(),
   providers: [
     { provide: APP_FILTER, useClass: HttpExceptionFilter },
@@ -61,6 +66,7 @@ console.log(process.env.MONGODB_ENV);
     CartService,
     WishListService,
     AddressService,
+    OrderService,
     JwtStrategy,
   ],
 })

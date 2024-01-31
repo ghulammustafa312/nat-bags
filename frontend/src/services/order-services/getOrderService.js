@@ -1,7 +1,5 @@
-import axios from "axios";
+import { axiosClient } from "../axios";
 
-export const getOrderService = async (token) => {
-  return await axios.get("api/user/orders", {
-    headers: { authorization: token },
-  });
+export const getOrderService = async () => {
+  return await axiosClient.get("/orders");
 };

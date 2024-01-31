@@ -8,6 +8,7 @@ import {
   IsString,
   Min,
   IsMongoId,
+  Max,
 } from 'class-validator';
 import { Types } from 'mongoose';
 
@@ -67,6 +68,22 @@ export class ProductDto {
   @IsNotEmpty()
   @IsString()
   img: string;
+}
+
+export class AddReviewDto {
+  @ApiProperty({
+    description: 'Feedback of the product',
+    example: 'Great Product',
+  })
+  @IsNotEmpty()
+  @IsString()
+  feedback: string;
+  @ApiProperty({ description: 'Rating for the product', example: 5 })
+  @IsNotEmpty()
+  @IsNumber()
+  @IsPositive()
+  @Max(5)
+  rating: number;
 }
 
 export class UpdateProductDto extends PartialType(ProductDto) {}
