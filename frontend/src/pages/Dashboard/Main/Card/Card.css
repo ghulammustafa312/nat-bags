@@ -24,12 +24,12 @@
   padding: 20px;
 }
 
-h3 {
+.card-title {
   margin: 0;
   color: #343a40; /* Dark text color */
 }
 
-p {
+.card-count {
   margin-top: 10px;
   font-size: 2rem;
   color: #6c757d; /* Gray text color */
