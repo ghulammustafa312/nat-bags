@@ -1,0 +1,36 @@
+.card {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 16px; /* Make the corners more rounded */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+  width: 200px; /* Set a fixed width for the card */
+  height: 150px; /* Set a fixed height for the card */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  /* Add hover effect */
+  &:hover {
+    transform: scale(1.05); /* Scale up on hover */
+  }
+}
+
+.card-content {
+  padding: 20px;
+}
+
+h3 {
+  margin: 0;
+  color: #343a40; /* Dark text color */
+}
+
+p {
+  margin-top: 10px;
+  font-size: 2rem;
+  color: #6c757d; /* Gray text color */
+}

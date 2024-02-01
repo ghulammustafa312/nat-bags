@@ -5,7 +5,6 @@ import { Route, Routes } from "react-router-dom";
 import { ProductListing } from "../pages/ProductListing/ProductListing";
 import { ProductDetails } from "../pages/ProductDetails/ProductDetails";
 import { RequiresAuth } from "../components/requires-auth/RequiresAuth";
-import { Login } from "../pages/auth/Login/Login";
 import { Logout } from "../pages/auth/Logout/Logout";
 import { Signup } from "../pages/auth/Signup/Signup";
 import { Checkout } from "../pages/Checkout/Checkout";
@@ -17,6 +16,8 @@ import { Orders } from "../pages/UserProfile/Orders/Orders";
 import { PageNotFound } from "../pages/PageNotFound/PageNotFound";
 import { LoginMain } from "../pages/auth/MainPage";
 import { Dashboard } from "../pages/Dashboard/Dashboard";
+import MainDashboard from "../pages/Dashboard/Main";
+import DashboardOrder from "../pages/Dashboard/Orders/Order";
 
 export const NavRoutes = () => {
   return (
@@ -69,11 +70,11 @@ export const NavRoutes = () => {
           path="/dashboard/"
           element={
             <RequiresAuth>
-              <Profile />
+              <MainDashboard />
             </RequiresAuth>
           }
         />
-        <Route path="/dashboard/orders" element={<Orders />} />
+        <Route path="/dashboard/orders" element={<DashboardOrder />} />
         <Route path="/dashboard/users" element={<Addresses />} />
         <Route path="/dashboard/products" element={<Addresses />} />
         <Route path="/dashboard/categories" element={<Addresses />} />
