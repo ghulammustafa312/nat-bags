@@ -2,8 +2,9 @@
 
 import React, { useState } from "react";
 import { Table, Button, Modal } from "antd";
+import "./Table.css";
 
-const TableComponent = ({ columns, data }) => {
+const TableComponent = ({ columns, data, showDelete = true, showEdit = true }) => {
   const [editModalVisible, setEditModalVisible] = useState(false);
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
 
@@ -26,25 +27,33 @@ const TableComponent = ({ columns, data }) => {
   };
 
   return (
-    <div>
+    <div className="table-wrapper">
       <Table
+        pagination={false}
+        bordered={true}
+        scroll={true}
         columns={[
           ...columns,
-          {
-            title: "Action",
-            key: "action",
-            render: (text, record) => (
-              <span>
-                <Button type="link" onClick={() => handleEdit(record)}>
-                  Edit
-                </Button>
-                <Button type="link" onClick={() => handleDelete(record)}>
-                  Delete
-                </Button>
-              </span>
-            ),
-          },
-        ]}
+          showEdit
+            ? {
+                title: "Action",
+                key: "action",
+                render: (text, record) => (
+                  <span>
+                    {/* <Button type="link" onClick={() => handleEdit(record)}>
+                      Edit
+                    </Button>
+                */}
+                    {showDelete && (
+                      <Button type="link" onClick={() => handleDelete(record)}>
+                        Delete
+                      </Button>
+                    )}
+                  </span>
+                ),
+              }
+            : null,
+        ].filter(Boolean)}
         dataSource={data}
       />
       {/* Modal for Edit */}
@@ -84,9 +93,7 @@ const TableComponent = ({ columns, data }) => {
       >
         {selectedRow && (
           <div>
-            <p style={{ fontSize: "1rem" }}>
-              Are You Sure you want to delete this?
-            </p>
+            <p style={{ fontSize: "1rem" }}>Are You Sure you want to delete this?</p>
           </div>
         )}
       </Modal>

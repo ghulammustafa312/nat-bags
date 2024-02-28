@@ -6,10 +6,10 @@ export const Dashboard = () => {
   const { loading } = useData();
   const { dashboardPage, setDashboardPage } = useAuth();
   const dashboardNav = [
-    {
-      name: "Dashboard",
-      path: "/dashboard/",
-    },
+    // {
+    //   name: "Dashboard",
+    //   path: "/dashboard/",
+    // },
     {
       name: "Orders",
       path: "/dashboard/orders",
@@ -26,10 +26,10 @@ export const Dashboard = () => {
       name: "Categories",
       path: "/dashboard/categories",
     },
-    {
-      name: "Complaints",
-      path: "/dashboard/complaints",
-    },
+    // {
+    //   name: "Complaints",
+    //   path: "/dashboard/complaints",
+    // },
   ];
 
   return (
@@ -40,8 +40,7 @@ export const Dashboard = () => {
             {dashboardNav.map((nav) => (
               <Link
                 style={{
-                  color:
-                    dashboardPage === nav.name.toLowerCase() ? "black" : "grey",
+                  color: dashboardPage === nav.name.toLowerCase() ? "black" : "grey",
                 }}
                 onClick={() => setDashboardPage(nav.name.toLowerCase())}
                 to={nav.path}

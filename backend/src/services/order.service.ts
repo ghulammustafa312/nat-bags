@@ -10,8 +10,10 @@ export class OrderService {
     @InjectModel(Order.name) private orderModel: Model<OrderDocument>,
   ) {}
 
-  async getAllOrders(): Promise<Order[]> {
-    return this.orderModel.find().sort({ createdAt: -1 }).exec();
+  async getAllOrders(userId?: string): Promise<Order[]> {
+    let filterQuery = {};
+    if (userId) filterQuery['userId'] = userId;
+    return this.orderModel.find(filterQuery).sort({ createdAt: -1 }).exec();
   }
 
   async getOrderById(orderId: string): Promise<Order> {

@@ -26,6 +26,14 @@ export class UsersService {
     }
   }
 
+  async findAllUsers() {
+    try {
+      return this.userModel.find().exec();
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
+  }
+
   async findAll(dto: any): Promise<{
     [x: string]: any;
     meta: { page: any; pages: any; limit: number; total: any };

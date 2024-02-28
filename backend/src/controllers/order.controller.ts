@@ -22,9 +22,14 @@ export class OrderController {
 
   // GET request handler to retrieve all orders
   @Get()
-  getAllCategories(): Promise<Order[]> {
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
+  getAllOrders(@Req() req: any): Promise<Order[]> {
     // Calling the service to get all orders
-    return this.orderService.getAllOrders();
+    let userId;
+    const role=req?.user?._id;
+    if(role==="user") userId=req?.user?._id;
+    return this.orderService.getAllOrders(userId);
   }
 
   // GET request handler to retrieve an order by ID

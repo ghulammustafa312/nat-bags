@@ -18,6 +18,10 @@ import { LoginMain } from "../pages/auth/MainPage";
 import { Dashboard } from "../pages/Dashboard/Dashboard";
 import MainDashboard from "../pages/Dashboard/Main";
 import DashboardOrder from "../pages/Dashboard/Orders/Order";
+import DashboardUser from "../pages/Dashboard/Users/Users";
+import DashboardProduct from "../pages/Dashboard/Products/Products";
+import DashboardCategories from "../pages/Dashboard/Categories/Categories";
+import DashboardComplaints from "../pages/Dashboard/Complaints/Complaints";
 
 export const NavRoutes = () => {
   return (
@@ -70,15 +74,16 @@ export const NavRoutes = () => {
           path="/dashboard/"
           element={
             <RequiresAuth>
-              <MainDashboard />
+              {/* <MainDashboard /> */}
+              <DashboardOrder />
             </RequiresAuth>
           }
         />
         <Route path="/dashboard/orders" element={<DashboardOrder />} />
-        <Route path="/dashboard/users" element={<Addresses />} />
-        <Route path="/dashboard/products" element={<Addresses />} />
-        <Route path="/dashboard/categories" element={<Addresses />} />
-        <Route path="/dashboard/complaints" element={<Addresses />} />
+        <Route path="/dashboard/users" element={<DashboardUser />} />
+        <Route path="/dashboard/products" element={<DashboardProduct />} />
+        <Route path="/dashboard/categories" element={<DashboardCategories />} />
+        <Route path="/dashboard/complaints" element={<DashboardComplaints />} />
       </Route>
     </Routes>
   );
