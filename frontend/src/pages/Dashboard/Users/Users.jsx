@@ -1,6 +1,7 @@
 import React from "react";
 import TableComponent from "../../../components/Table/Table";
 import { userService } from "../../../services/auth-services/userService";
+import { Tag } from "antd";
 
 const DashboardUser = () => {
   const [users, setUsers] = React.useState([]);
@@ -24,6 +25,7 @@ const DashboardUser = () => {
       title: "Role",
       dataIndex: "role",
       key: "role",
+      render:(role,record)=><Tag color={role=="USER"?"blue":"gold"}>{role?.toLowerCase()}</Tag>
     },
     {
       title: "Phone Number",

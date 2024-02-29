@@ -1,6 +1,13 @@
 import React from "react";
 import TableComponent from "../../../components/Table/Table";
-import { getAllProducts, getAllCategories } from "../../../services/services";
+import {
+  getAllProducts,
+  getAllCategories,
+  uploadImage,
+  addProduct,
+  deleteProduct,
+  updateProduct,
+} from "../../../services/services";
 import { Button, Form, Input, Modal, Upload, Switch, Select } from "antd";
 import { addOrderService } from "../../../services/order-services/addOrderService";
 
@@ -39,13 +46,23 @@ const DashboardProduct = () => {
       title: "Image",
       dataIndex: "description",
       key: "description",
-      render: (text, record) => <img width={"90px"} src={record?.img} alt={record?.name} />,
+      render: (text, record) => (
+        <img width={"90px"} src={record?.img} alt={record?.name} />
+      ),
     },
     {
       title: "Stocked",
       dataIndex: "discounted_price",
       key: "discounted_price",
-      render: (text, record) => <p>{record?.is_stock ? "Available" : "Not Available"}</p>,
+      render: (text, record) => (
+        <Select
+          defaultValue={record?.is_stock}
+          onChange={(value) => handleAvailabilityChange(record._id, value)}
+        >
+          <Select.Option value={true}>Available</Select.Option>
+          <Select.Option value={false}>Unavailable</Select.Option>
+        </Select>
+      ),
     },
   ];
 
@@ -71,18 +88,40 @@ const DashboardProduct = () => {
     const res = await getAllCategories();
     setCategories(res?.data?.data || []);
   };
+  const handleAvailabilityChange = async (id, is_stock) => {
+    try {
+      await updateProduct(id, { is_stock });
+    } catch (e) {
+      console.log("errrr", e);
+    } finally {
+      fetchProducts();
+    }
+  };
   const closeModal = () => {
     setAddModalVisible((prev) => !prev);
   };
-  const handleSubmit = (values) => {
+  const handleSubmit = async (values) => {
     console.log("values", values);
-    const { img, ...rest } = values;
-    const formData = new FormData();
-    for (let key in rest) {
-      formData.append([key], rest[key]);
+    try {
+      const { img, ...rest } = values;
+      const formData = new FormData();
+      formData.append("file", img?.[0]?.originFileObj);
+      const imageRes = await uploadImage(formData);
+      const payload = {
+        ...rest,
+        original_price: Number(values?.original_price),
+        discounted_price: Number(values?.discounted_price),
+        img: imageRes?.data?.data,
+        stock: 50,
+        trending: true,
+      };
+      await addProduct(payload);
+    } catch (e) {
+      console.log("errr", e);
+    } finally {
+      closeModal();
+      fetchProducts();
     }
-    formData.append("img", img?.[0]?.originFileObj);
-    addOrderService(formData);
   };
   React.useEffect(() => {
     fetchProducts();
@@ -94,8 +133,13 @@ const DashboardProduct = () => {
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <h1 className="dashboard-heading">Products</h1>
         <Button onClick={() => setAddModalVisible(true)}>Add Product</Button>
-      </div>{" "}
-      <TableComponent columns={columns} data={products} />
+      </div>
+      <TableComponent
+        columns={columns}
+        data={products}
+        onDelete={deleteProduct}
+        refetch={fetchProducts}
+      />
       <Modal
         title="Add Row"
         open={addModalVisible}
@@ -111,29 +155,64 @@ const DashboardProduct = () => {
       >
         <div>
           <Form layout="vertical" form={form} onFinish={handleSubmit}>
-            <Form.Item name="name" label="product Name" rules={[{ required: true }]}>
+            <Form.Item
+              name="name"
+              label="product Name"
+              rules={[{ required: true }]}
+            >
               <Input type="text" placeholder="Enter product name" />
             </Form.Item>
-            <Form.Item name="description" label="product description" rules={[{ required: true }]}>
+            <Form.Item
+              name="description"
+              label="product description"
+              rules={[{ required: true }]}
+            >
               <Input type="text" placeholder="Enter product description" />
             </Form.Item>
-            <Form.Item name="original_price" label="product original price" rules={[{ required: true }]}>
+            <Form.Item
+              name="original_price"
+              label="product original price"
+              rules={[{ required: true }]}
+            >
               <Input type="number" placeholder="Enter product price" />
             </Form.Item>
-            <Form.Item name="discounted_price" label="product discounted price" rules={[{ required: true }]}>
-              <Input type="number" placeholder="Enter product discounted price" />
+            <Form.Item
+              name="discounted_price"
+              label="product discounted price"
+              rules={[{ required: true }]}
+            >
+              <Input
+                type="number"
+                placeholder="Enter product discounted price"
+              />
             </Form.Item>
-            <Form.Item name="is_stock" label="product stocked" rules={[{ required: true }]}>
+            <Form.Item
+              name="is_stock"
+              label="product stocked"
+              rules={[{ required: true }]}
+            >
               <Switch />
             </Form.Item>
-            <Form.Item name="categoryId" label="product category" rules={[{ required: true }]}>
+            <Form.Item
+              name="categoryId"
+              label="product category"
+              rules={[{ required: true }]}
+            >
               <Select>
                 {categories?.map((category) => (
-                  <Select.Option value={category._id}>{category?.categoryName}</Select.Option>
+                  <Select.Option value={category._id}>
+                    {category?.categoryName}
+                  </Select.Option>
                 ))}
               </Select>
             </Form.Item>
-            <Form.Item name="img" label="Product Image" valuePropName="fileList" getValueFromEvent={(e) => e.fileList} rules={[{ required: true }]}>
+            <Form.Item
+              name="img"
+              label="Product Image"
+              valuePropName="fileList"
+              getValueFromEvent={(e) => e.fileList}
+              rules={[{ required: true }]}
+            >
               <Upload
                 name="img"
                 listType="picture"

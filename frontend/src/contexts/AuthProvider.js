@@ -42,11 +42,13 @@ export const AuthProvider = ({ children }) => {
         const firstName = response.data?.data?.user?.firstName;
         const lastName = response.data?.data?.user?.lastName;
         const email = response.data?.data?.user?.email;
+        const role = response?.data?.data?.user?.role || "USER";
         localStorage.setItem("token", encodedToken);
         localStorage.setItem("isAuth", true);
         localStorage.setItem("firstName", firstName);
         localStorage.setItem("lastName", lastName);
         localStorage.setItem("email", email);
+        localStorage.setItem("role", role);
         setLoginCredential({ email: "", password: "" });
 
         setAuth({
@@ -56,8 +58,8 @@ export const AuthProvider = ({ children }) => {
           lastName,
           email,
         });
-
-        navigate(location?.state?.from.pathname || "/");
+        if (role == "ADMIN") navigate("/dashboard")
+        else navigate(location?.state?.from.pathname || "/");
       }
     } catch (error) {
       setLoginLoading(false);

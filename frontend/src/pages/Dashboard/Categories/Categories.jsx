@@ -1,6 +1,11 @@
 import React from "react";
 import TableComponent from "../../../components/Table/Table";
-import { getAllCategories } from "../../../services/services.js";
+import {
+  addCategory,
+  deleteCategory,
+  getAllCategories,
+  uploadImage,
+} from "../../../services/services.js";
 import { Button, Form, Input, Modal, Upload } from "antd";
 import { addOrderService } from "../../../services/order-services/addOrderService.js";
 const DashboardCategories = () => {
@@ -17,7 +22,13 @@ const DashboardCategories = () => {
       title: "Image",
       dataIndex: "age",
       key: "age",
-      render: (text, record) => <img src={record?.img} alt={record?.categoryName} style={{ width: "90px" }} />,
+      render: (text, record) => (
+        <img
+          src={record?.img}
+          alt={record?.categoryName}
+          style={{ width: "90px" }}
+        />
+      ),
     },
   ];
 
@@ -42,12 +53,22 @@ const DashboardCategories = () => {
   const closeModal = () => {
     setAddModalVisible((prev) => !prev);
   };
-  const handleSubmit = (values) => {
+  const handleSubmit = async (values) => {
     console.log("values", values);
-    const formData = new FormData();
-    formData.append("categoryName", values?.categoryName);
-    formData.append("img", values?.image[0]?.originFileObj);
-    addOrderService(formData);
+    try {
+      const formData = new FormData();
+      formData.append("file", values?.image[0]?.originFileObj);
+      const imageRes = await uploadImage(formData);
+      await addCategory({
+        categoryName: values?.categoryName,
+        img: imageRes?.data?.data,
+      });
+    } catch (e) {
+      console.log("errr", e);
+    } finally {
+      closeModal();
+      fetchCategories();
+    }
   };
   let selectedRow;
   React.useEffect(() => {
@@ -59,7 +80,7 @@ const DashboardCategories = () => {
         <h1 className="dashboard-heading">Categories</h1>
         <Button onClick={() => setAddModalVisible(true)}>Add Category</Button>
       </div>
-      <TableComponent columns={columns} data={categories} />
+      <TableComponent columns={columns} data={categories} onDelete={deleteCategory} refetch={fetchCategories} />
       <Modal
         title="Add Row"
         open={addModalVisible}
@@ -75,7 +96,11 @@ const DashboardCategories = () => {
       >
         <div>
           <Form layout="vertical" form={form} onFinish={handleSubmit}>
-            <Form.Item name="categoryName" label="Category Name" rules={[{ required: true }]}>
+            <Form.Item
+              name="categoryName"
+              label="Category Name"
+              rules={[{ required: true }]}
+            >
               <Input type="text" placeholder="Enter category name" />
             </Form.Item>
             <Form.Item

@@ -4,7 +4,14 @@ import React, { useState } from "react";
 import { Table, Button, Modal } from "antd";
 import "./Table.css";
 
-const TableComponent = ({ columns, data, showDelete = true, showEdit = true }) => {
+const TableComponent = ({
+  columns,
+  data,
+  showDelete = true,
+  showEdit = true,
+  onDelete,
+  refetch
+}) => {
   const [editModalVisible, setEditModalVisible] = useState(false);
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
 
@@ -15,10 +22,21 @@ const TableComponent = ({ columns, data, showDelete = true, showEdit = true }) =
     setSelectedRow(record);
   };
 
-  const handleDelete = (record) => {
-    setDeleteModalVisible(true);
-    setSelectedRow(record);
+  const handleDelete = async (record) => {
+      setDeleteModalVisible(true);
+      setSelectedRow(record);
   };
+
+  const deleteRow=async()=>{
+    try {
+      await onDelete(selectedRow?._id);
+    } catch (e) {
+      console.log("err", e);
+    } finally {
+      closeModal()
+      refetch()
+    }
+  }
 
   const closeModal = () => {
     setEditModalVisible(false);
@@ -86,14 +104,16 @@ const TableComponent = ({ columns, data, showDelete = true, showEdit = true }) =
           <Button key="cancel" onClick={closeModal}>
             Cancel
           </Button>,
-          <Button key="save" type="primary" onClick={closeModal}>
+          <Button key="save" type="primary" onClick={deleteRow}>
             Delete
           </Button>,
         ]}
       >
         {selectedRow && (
           <div>
-            <p style={{ fontSize: "1rem" }}>Are You Sure you want to delete this?</p>
+            <p style={{ fontSize: "1rem" }}>
+              Are You Sure you want to delete this?
+            </p>
           </div>
         )}
       </Modal>

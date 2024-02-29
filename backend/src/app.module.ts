@@ -29,6 +29,8 @@ import { OrderController } from './controllers/order.controller';
 import { OrderService } from './services/order.service';
 import { Order, OrderSchema } from './schemas/order.schema';
 import { UserController } from './controllers/user.controller';
+import { UploadsController } from './controllers/upload.controller';
+import { FirebaseService } from './services/firebase.service';
 console.log(process.env.MONGODB_ENV);
 @Module({
   imports: [
@@ -56,6 +58,7 @@ console.log(process.env.MONGODB_ENV);
     AddressController,
     OrderController,
     UserController,
+    UploadsController
   ].sort(),
   providers: [
     { provide: APP_FILTER, useClass: HttpExceptionFilter },
@@ -69,6 +72,7 @@ console.log(process.env.MONGODB_ENV);
     WishListService,
     AddressService,
     OrderService,
+    FirebaseService,
     JwtStrategy,
   ],
 })

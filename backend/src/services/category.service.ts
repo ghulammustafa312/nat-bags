@@ -27,4 +27,12 @@ export class CategoryService {
     const createdCategory = new this.categoryModel(categoryDto);
     return createdCategory.save();
   }
+  async deleteCategory(categoryId: string): Promise<void> {
+    const deletedCategory = await this.categoryModel
+      .findByIdAndDelete(categoryId)
+      .exec();
+    if (!deletedCategory) {
+      throw new NotFoundException('Product not found');
+    }
+  }
 }
