@@ -3,7 +3,6 @@ import "./BillingSummary.css";
 import { useUserData } from "../../../../contexts/UserDataProvider";
 
 export const BillingSummary = () => {
-  
   const { userDataState } = useUserData();
 
   return (
@@ -11,17 +10,14 @@ export const BillingSummary = () => {
       <div className="price-details-container">
         <div>
           <span className="subtotal">Subtotal</span>
-          <span>${userDataState.orderDetails?.cartItemsTotal}</span>
+          <span>Rs {userDataState.orderDetails?.cartItemsTotal}</span>
         </div>
 
         <div>
           <span className="subtotal">Discount</span>
           <span>
-            $
-            {(
-              userDataState.orderDetails?.cartItemsTotal -
-              userDataState.orderDetails?.cartItemsDiscountTotal
-            ).toFixed(2)}
+            Rs
+            {(userDataState.orderDetails?.cartItemsTotal - userDataState.orderDetails?.cartItemsDiscountTotal).toFixed(2)}
           </span>
         </div>
 
@@ -31,7 +27,7 @@ export const BillingSummary = () => {
         </div>
         <div>
           <span>Total</span>
-          <span>${userDataState.orderDetails?.cartItemsDiscountTotal}</span>
+          <span>Rs {userDataState.orderDetails?.cartItemsDiscountTotal}</span>
         </div>
       </div>
     </div>

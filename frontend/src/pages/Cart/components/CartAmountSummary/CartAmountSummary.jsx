@@ -37,16 +37,16 @@ export const CartAmountSummary = ({ couponSelected }) => {
       <h1>Summary</h1>
       <div className="subtotal-container">
         <span>Sub-total: </span>
-        <span>${totalOriginalPrice}</span>
+        <span>Rs {totalOriginalPrice}</span>
       </div>
       <div className="discount-container">
         <span>Discount: </span>
-        <span>-${totalOriginalPrice - totalDiscountedPriceBeforeCoupon}</span>
+        <span>-Rs {totalOriginalPrice - totalDiscountedPriceBeforeCoupon}</span>
       </div>
       {isCouponApplied && (
         <div className="discount-container">
           <span>Coupon Discount: </span>
-          <span> -${totalCouponDiscount}</span>
+          <span> -Rs {totalCouponDiscount}</span>
         </div>
       )}
       <div className="shipping-container">
@@ -55,11 +55,11 @@ export const CartAmountSummary = ({ couponSelected }) => {
       </div>
       <div className="total">
         <span className="total-container">Total: </span>
-        <span>${totalDiscountedPriceAfterCoupon}</span>
+        <span>Rs {totalDiscountedPriceAfterCoupon}</span>
       </div>
 
       <div className="total-discount-container">
-        <span>You saved ${(totalOriginalPrice - totalDiscountedPriceAfterCoupon).toFixed(2)} </span>
+        <span>You saved Rs {(totalOriginalPrice - totalDiscountedPriceAfterCoupon).toFixed(2)} </span>
       </div>
 
       <Link onClick={placeOrderHandler} to="/checkout">

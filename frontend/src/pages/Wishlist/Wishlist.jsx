@@ -31,8 +31,8 @@ export const Wishlist = () => {
                   <BsFillStarFill color="orange" /> ({product.reviews} reviews){" "}
                 </p>
                 <div className="price-container">
-                  <p className="original-price">${product.original_price}</p>
-                  <p className="discount-price">${product.discounted_price}</p>
+                  <p className="original-price">Rs {product.original_price}</p>
+                  <p className="discount-price">Rs {product.discounted_price}</p>
                 </div>
 
                 <p>Category: {product.category_name}</p>

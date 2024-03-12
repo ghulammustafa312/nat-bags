@@ -41,7 +41,7 @@ export const Orders = () => {
           </div>
           <div className="price-container">
             <span>Amount: </span>
-            <span>${amountPaid}</span>
+            <span>Rs {amountPaid}</span>
           </div>
           <div className="price-container">
             <span>Delivery-Address:</span>
@@ -56,7 +56,7 @@ export const Orders = () => {
                 <div className="description">
                   <span className="name">Name: {name}</span>
                   <span className="qty">Qty: {qty}</span>
-                  <span className="price">Price: ${discounted_price}</span>
+                  <span className="price">Price: Rs {discounted_price}</span>
                 </div>
               </div>
             ))}

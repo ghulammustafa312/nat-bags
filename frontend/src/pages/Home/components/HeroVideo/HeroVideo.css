@@ -13,7 +13,7 @@
 }
 
 .hero-video-container img {
-  object-fit: cover;
+  object-fit: contains;
 }
 
 .hero-text {

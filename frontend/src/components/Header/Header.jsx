@@ -23,34 +23,29 @@ export const Header = () => {
     return { color: isActive ? "white" : "" };
   };
 
-  const totalProductsInCart = userDataState.cartProducts?.reduce(
-    (acc, curr) => {
-      return acc + curr.qty;
-    },
-    0
-  );
+  const totalProductsInCart = userDataState.cartProducts?.reduce((acc, curr) => {
+    return acc + curr.qty;
+  }, 0);
 
   const isProductInCart = () => (Number(totalProductsInCart) ? true : false);
 
   const totalProductsInWishlist = userDataState.wishlistProducts.length;
 
-  const isProductInWishlist = () =>
-    Number(totalProductsInWishlist) ? true : false;
+  const isProductInWishlist = () => (Number(totalProductsInWishlist) ? true : false);
 
   return (
     <nav>
       <div className="nav-logo-home-button">
         <NavLink style={getActiveStyle} to="/">
-          <SiTaichilang />
+          {/*<SiTaichilang />*/}
+          <img style={{ mixBlendMode: "color-burn" }} width="50px" src={"assets/icons/logo-revamp.png"} alt="logo" />
           <span className="brand-name">Nat Bags</span>
         </NavLink>
       </div>
 
       <div className="nav-input-search">
         <input
-          onChange={(e) =>
-            dispatch({ type: "SEARCH", payload: e.target.value })
-          }
+          onChange={(e) => dispatch({ type: "SEARCH", payload: e.target.value })}
           onKeyDown={(e) => {
             e.key === "Enter" && navigate("/product-listing");
           }}
@@ -61,62 +56,27 @@ export const Header = () => {
         </button>
       </div>
 
-      <div
-        className={
-          !showHamburger
-            ? "nav-link-container-mobile nav-link-container"
-            : "nav-link-container"
-        }
-      >
-        <NavLink
-          onClick={() => setShowHamburger(true)}
-          style={getActiveStyle}
-          to="/product-listing"
-        >
+      <div className={!showHamburger ? "nav-link-container-mobile nav-link-container" : "nav-link-container"}>
+        <NavLink onClick={() => setShowHamburger(true)} style={getActiveStyle} to="/product-listing">
           Explore
         </NavLink>
-        <NavLink
-          onClick={() => setShowHamburger(true)}
-          style={getActiveStyle}
-          to={auth.isAuth ? "/profile" : "/login"}
-        >
+        <NavLink onClick={() => setShowHamburger(true)} style={getActiveStyle} to={auth.isAuth ? "/profile" : "/login"}>
           {!auth.isAuth ? "Login" : "Profile"}
         </NavLink>
         {auth.isAuth && role == "ADMIN" && (
-          <NavLink
-            onClick={() => setShowHamburger(true)}
-            style={getActiveStyle}
-            to={"/dashboard"}
-          >
+          <NavLink onClick={() => setShowHamburger(true)} style={getActiveStyle} to={"/dashboard"}>
             Dashbaord
           </NavLink>
         )}
-        <NavLink
-          onClick={() => setShowHamburger(true)}
-          style={getActiveStyle}
-          to="wishlist"
-        >
+        <NavLink onClick={() => setShowHamburger(true)} style={getActiveStyle} to="wishlist">
           <span>{!showHamburger ? "Wishlist" : ""}</span>
           <CgHeart size={25} className="wishlist" />{" "}
-          {isProductInWishlist() && (
-            <span className="cart-count cart-count-mobile">
-              {totalProductsInWishlist}
-            </span>
-          )}
+          {isProductInWishlist() && <span className="cart-count cart-count-mobile">{totalProductsInWishlist}</span>}
         </NavLink>
-        <NavLink
-          onClick={() => setShowHamburger(true)}
-          style={getActiveStyle}
-          to="/cart"
-        >
+        <NavLink onClick={() => setShowHamburger(true)} style={getActiveStyle} to="/cart">
           <span>{!showHamburger ? "Cart" : ""}</span>
           <CgShoppingCart size={25} className="cart" />{" "}
-          {isProductInCart() && (
-            <span className="cart-count cart-count-mobile">
-              {" "}
-              {totalProductsInCart}{" "}
-            </span>
-          )}
+          {isProductInCart() && <span className="cart-count cart-count-mobile"> {totalProductsInCart} </span>}
         </NavLink>
       </div>
       {showHamburger && (
@@ -125,10 +85,7 @@ export const Header = () => {
         </div>
       )}
       {!showHamburger && (
-        <div
-          className="cross-tab-icon cross-tab-icon-mobile"
-          onClick={() => setShowHamburger(true)}
-        >
+        <div className="cross-tab-icon cross-tab-icon-mobile" onClick={() => setShowHamburger(true)}>
           <RxCross2 color={"rgb(106, 106, 65)"} size={25} />
         </div>
       )}

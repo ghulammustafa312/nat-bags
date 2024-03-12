@@ -18,7 +18,7 @@ export const CartListing = () => {
           </div>
           <div className="product-description">
             <h3>{product.name}</h3>
-            <p>Price:${product.discounted_price}</p>
+            <p>Price:Rs {product.discounted_price}</p>
             {/* <p>Size: {product.size}</p>*/}
           </div>
           <div className="button-section">

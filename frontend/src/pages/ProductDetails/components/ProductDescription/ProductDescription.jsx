@@ -19,8 +19,8 @@ export const ProductDescription = ({ selectedProduct }) => {
       </div>
 
       <div className="product-price-container">
-        <span className="product-original-price">${selectedProduct?.original_price} </span>
-        <span className="product-discount-price"> ${selectedProduct?.discounted_price}</span>
+        <span className="product-original-price">Rs {selectedProduct?.original_price} </span>
+        <span className="product-discount-price">Rs {selectedProduct?.discounted_price}</span>
       </div>
 
       <p className="description-container">
