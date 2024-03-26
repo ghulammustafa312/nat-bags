@@ -38,57 +38,63 @@ export const Header = () => {
       <div className="nav-logo-home-button">
         <NavLink style={getActiveStyle} to="/">
           {/*<SiTaichilang />*/}
-          <img style={{ mixBlendMode: "color-burn" }} width="50px" src={"assets/icons/logo-revamp.png"} alt="logo" />
-          <span className="brand-name">Nat Bags</span>
+          <img style={{ mixBlendMode: "color-burn" }} width="100px" src={"assets/icons/logo-revamp.png"} alt="logo" />
+          {/* <span className="brand-name">Nat Bags</span> */}
         </NavLink>
       </div>
-
-      <div className="nav-input-search">
-        <input
-          onChange={(e) => dispatch({ type: "SEARCH", payload: e.target.value })}
-          onKeyDown={(e) => {
-            e.key === "Enter" && navigate("/product-listing");
-          }}
-          placeholder="Search"
-        />
-        <button>
-          <GrSearch />
-        </button>
-      </div>
-
-      <div className={!showHamburger ? "nav-link-container-mobile nav-link-container" : "nav-link-container"}>
-        <NavLink onClick={() => setShowHamburger(true)} style={getActiveStyle} to="/product-listing">
-          Explore
-        </NavLink>
-        <NavLink onClick={() => setShowHamburger(true)} style={getActiveStyle} to={auth.isAuth ? "/profile" : "/login"}>
-          {!auth.isAuth ? "Login" : "Profile"}
-        </NavLink>
-        {auth.isAuth && role == "ADMIN" && (
-          <NavLink onClick={() => setShowHamburger(true)} style={getActiveStyle} to={"/dashboard"}>
-            Dashbaord
-          </NavLink>
-        )}
-        <NavLink onClick={() => setShowHamburger(true)} style={getActiveStyle} to="wishlist">
-          <span>{!showHamburger ? "Wishlist" : ""}</span>
-          <CgHeart size={25} className="wishlist" />{" "}
-          {isProductInWishlist() && <span className="cart-count cart-count-mobile">{totalProductsInWishlist}</span>}
-        </NavLink>
-        <NavLink onClick={() => setShowHamburger(true)} style={getActiveStyle} to="/cart">
-          <span>{!showHamburger ? "Cart" : ""}</span>
-          <CgShoppingCart size={25} className="cart" />{" "}
-          {isProductInCart() && <span className="cart-count cart-count-mobile"> {totalProductsInCart} </span>}
-        </NavLink>
-      </div>
-      {showHamburger && (
-        <div className="hamburger-icon" onClick={() => setShowHamburger(false)}>
-          <RxHamburgerMenu size={20} />
+      <div className="customer-service-section">
+        <div style={{ paddingBottom: "5px" }}>Customer Service +923123456789 / WhatsApp +923123456789</div>
+        <div style={{ textTransform: "uppercase", fontWeight: "bold", paddingBottom: "5px" }}>
+          Free Lifetime returns and exchanges.Rs 200 delivery charges nationwide
         </div>
-      )}
-      {!showHamburger && (
-        <div className="cross-tab-icon cross-tab-icon-mobile" onClick={() => setShowHamburger(true)}>
-          <RxCross2 color={"rgb(106, 106, 65)"} size={25} />
+        <div className="nav-links-section">
+          <div className="nav-input-search">
+            <input
+              onChange={(e) => dispatch({ type: "SEARCH", payload: e.target.value })}
+              onKeyDown={(e) => {
+                e.key === "Enter" && navigate("/product-listing");
+              }}
+              placeholder="Search"
+            />
+            <button>
+              <GrSearch />
+            </button>
+          </div>
+          <div className={!showHamburger ? "nav-link-container-mobile nav-link-container" : "nav-link-container"}>
+            <NavLink onClick={() => setShowHamburger(true)} style={getActiveStyle} to="/product-listing">
+              Explore
+            </NavLink>
+            <NavLink onClick={() => setShowHamburger(true)} style={getActiveStyle} to={auth.isAuth ? "/profile" : "/login"}>
+              {!auth.isAuth ? "Login" : "Profile"}
+            </NavLink>
+            {auth.isAuth && role == "ADMIN" && (
+              <NavLink onClick={() => setShowHamburger(true)} style={getActiveStyle} to={"/dashboard"}>
+                Dashbaord
+              </NavLink>
+            )}
+            <NavLink onClick={() => setShowHamburger(true)} style={getActiveStyle} to="wishlist">
+              <span>{!showHamburger ? "Wishlist" : ""}</span>
+              <CgHeart size={25} className="wishlist" />{" "}
+              {isProductInWishlist() && <span className="cart-count cart-count-mobile">{totalProductsInWishlist}</span>}
+            </NavLink>
+            <NavLink onClick={() => setShowHamburger(true)} style={getActiveStyle} to="/cart">
+              <span>{!showHamburger ? "Cart" : ""}</span>
+              <CgShoppingCart size={25} className="cart" />{" "}
+              {isProductInCart() && <span className="cart-count cart-count-mobile"> {totalProductsInCart} </span>}
+            </NavLink>
+          </div>
+          {showHamburger && (
+            <div className="hamburger-icon" onClick={() => setShowHamburger(false)}>
+              <RxHamburgerMenu size={20} />
+            </div>
+          )}
+          {!showHamburger && (
+            <div className="cross-tab-icon cross-tab-icon-mobile" onClick={() => setShowHamburger(true)}>
+              <RxCross2 color={"rgb(106, 106, 65)"} size={25} />
+            </div>
+          )}{" "}
         </div>
-      )}
+      </div>
     </nav>
   );
 };

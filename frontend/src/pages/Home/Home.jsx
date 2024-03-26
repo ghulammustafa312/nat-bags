@@ -5,6 +5,7 @@ import { CategoriesSection } from "./components/CategoriesSection/CategoriesSect
 import { VideosSection } from "./components/VideosSection/VideosSection";
 import { HeroVideo } from "./components/HeroVideo/HeroVideo";
 import { useData } from "../../contexts/DataProvider";
+import HeaderStrip from "./components/HeaderStrip";
 
 export const Home = () => {
   const { loading } = useData();
@@ -12,6 +13,7 @@ export const Home = () => {
     !loading && (
       <div className="home-page">
         <div className="hero">
+          <HeaderStrip />
           <HeroVideo />
           <HeroSection />
           <VideosSection />

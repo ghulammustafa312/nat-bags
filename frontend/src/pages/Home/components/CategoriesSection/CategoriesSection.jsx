@@ -6,10 +6,10 @@ import "./CategoriesSection.css";
 export const CategoriesSection = () => {
   const { state, dispatch } = useData();
   return (
-    <div>
+    <div id="categories-section">
       <h1 className="categories-heading">Shop By Categories</h1>
       <div className="categories-container">
-        {state.allCategories.map(({ _id, categoryName, img }) => (
+        {state.allCategories.slice(0, 3).map(({ _id, categoryName, img }) => (
           <Link
             onClick={() =>
               dispatch({

@@ -9,7 +9,7 @@ export const HeroVideo = () => {
   return (
     <div className="hero-video-container">
       <div className="hero-video">
-        <img src="assets/images/banner-final.png" alt="" width={"100%"} height={"100%"} />
+        <img src="assets/images/banner-revamp.jpg" alt="" width={"100%"} height={"100%"} />
         {/*  <ReactPlayer
           // url={`${process.env.PUBLIC_URL}/assets/videos/video-3.mp4`}
           url="https://res.cloudinary.com/darwtgzlk/video/upload/v1687841755/Ecommerce-app/video-3_bvxghi.mp4"
